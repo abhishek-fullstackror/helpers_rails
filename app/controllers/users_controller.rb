@@ -3,7 +3,10 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = []
+    User.find_each(batch_size: 100) do |user|
+      @users << user
+    end
   end
 
   # GET /users/1 or /users/1.json
